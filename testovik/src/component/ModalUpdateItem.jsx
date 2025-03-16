@@ -3,24 +3,28 @@ import '../css/ModalPopup.css';
 
 export const ModalUpdateItem = ({ updateOpen, item, updateClose, handleSubmit }) => {
   const inputRef = useRef();
+  const [itemId, setItemId] = useState(item?.id || '');
   const [itemTitle, setItemTitle] = useState(item?.title || '');
   const [itemDescription, setItemDescription] = useState(item?.description || '');
-  const [itemData, setItemData] = useState(item?.date || '');
+  const [itemDate, setItemDate] = useState(item?.date || '');
   const [itemTime, setItemTime] = useState(item?.time || '');
   const [itemPhoto, setItemPhoto] = useState(item?.photo || '');
-  const [updateddItem, setUpdateddItem] = useState({
-    title: "", description: "",date: "", time: "",photo: "",});
+  // const [updateddItem, setUpdateddItem] = useState({
+  //   title: "", description: "",date: "", time: "",photo: "",});
   const [errors, setErrors] = useState({
     title: '', description: '', date: '', time: '', photo: "",});
 
   // Автоматическая фокусировка на инпуте и обновление состояний
   useEffect(() => {
-    if (updateOpen && inputRef.current) {
-      inputRef.current.focus();
+    if (updateOpen  ) {
+      // inputRef.current.focus();
     }
+ 
+    // console.log('useffect', item)
+    setItemId(item?.id)
     setItemTitle(item?.title || '');
     setItemDescription(item?.description || '');
-    setItemData(item?.date || '');
+    setItemDate(item?.date || '');
     setItemTime(item?.time || '');
     setItemPhoto(item?.photo || '')
   }, [updateOpen, item]);
@@ -61,14 +65,14 @@ export const ModalUpdateItem = ({ updateOpen, item, updateClose, handleSubmit })
 
     // Проверка даты (формат DD.MM.YYYY)
     const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/;
-    if (!itemData.trim()) {
+    if (!itemDate.trim()) {
       newErrors.date = 'Дата обязательна для заполнения';
       isValid = false;
-    } else if (!dateRegex.test(itemData)) {
+    } else if (!dateRegex.test(itemDate)) {
       newErrors.date = 'Дата должна быть в формате DD.MM.YYYY';
       isValid = false;
     } else {
-      const [day, month, year] = itemData.split('.').map(Number);
+      const [day, month, year] = itemDate.split('.').map(Number);
       if (!isValidDate(day, month, year)) {
         newErrors.date = 'Некорректная дата';
         isValid = false;
@@ -90,7 +94,7 @@ export const ModalUpdateItem = ({ updateOpen, item, updateClose, handleSubmit })
   };
 
   // Обработка отправки формы
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit =async (e) => {
     e.preventDefault();
     // Проверяем валидацию
     if (!validateForm()) {
@@ -99,28 +103,35 @@ export const ModalUpdateItem = ({ updateOpen, item, updateClose, handleSubmit })
     // Создаем обновленный объект
     const updatedItem = {
       ...item,
-      id:item.id,
+      id:itemId,
       title: itemTitle,
       description: itemDescription,
-      date: itemData,
+      date: itemDate,
       time: itemTime,
       photo:itemPhoto,
     };
     
-    setUpdateddItem(updatedItem) ;
-    console.log('updateddItem',updateddItem)
-    handleSubmit(item.id, updatedItem); // Передаем обновленные данные
-    
-    updateClose(); // Закрываем модальное окно
+  //  setUpdateddItem(updatedItem) ;
+    // console.log('updateddItem',updateddItem)
+    try {
+      await handleSubmit(item.id, updatedItem); // Дождитесь завершения handleSubmit
+      updateClose(); // Закрываем модальное окно только после успешной отправки
+    } catch (error) {
+      console.error("Ошибка при обновлении элемента:", error);
+    }
   };
    
   return (
     <>
-      {updateOpen &&  item.id &&(
+      {updateOpen &&  item  &&(
         <div className="modal">
           <div className="modal-wrapped">
             <div className="modal-content">
-              <form id="updateItem" className='updateForm' onSubmit={handleFormSubmit}>
+              <form id="updateItem" key={item.id} className='updateForm' onSubmit={handleFormSubmit}>
+                <button  className='noButton'
+                          onClick ={()=> updateClose(false)}>
+                          X
+                        </button>   
                 <h3>Редактирование семинара</h3>
 
                 {/* Поле "Название" */}
@@ -134,7 +145,9 @@ export const ModalUpdateItem = ({ updateOpen, item, updateClose, handleSubmit })
                     placeholder='изменить название'
                     required
                     value={itemTitle}
-                    onChange={(e) => setItemTitle(e.target.value)}
+                    onChange={(e) => {setItemTitle(e.target.value)
+                                     setItemId(item.id)}
+                    }
                   />
                  <p> {errors.title && <span className="error show">{errors.title}</span>}</p>
                 </div>
@@ -161,8 +174,8 @@ export const ModalUpdateItem = ({ updateOpen, item, updateClose, handleSubmit })
                     id='updateDate'
                     placeholder='дата (DD.MM.YYYY)'
                     required
-                    value={itemData}
-                    onChange={(e) => setItemData(e.target.value)}
+                    value={itemDate}
+                    onChange={(e) => setItemDate(e.target.value)}
                   />
                   <p>{errors.date && <span className="error show">{errors.date}</span>}</p>
                 </div>
@@ -197,10 +210,7 @@ export const ModalUpdateItem = ({ updateOpen, item, updateClose, handleSubmit })
                 </div>
                 {/* Кнопка отправки */}
                 <div className='modal-div'>
-                        <button  className='noButton'
-                          onClick ={()=> updateClose(false)}>
-                           ОТМЕНА
-                        </button>
+                         
                         <button type='submit' aria-label='update item' >
                           ИЗМЕНИТЬ
                         </button>

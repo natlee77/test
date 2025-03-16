@@ -71,7 +71,7 @@ const Content = ({items=[],  handleDelete, handleSubmit  }) => {
               <ModalUpdateItem 
               updateOpen={modalUpdateOpen}
               updateClose={()=> setModalUpdateOpen(false)}
-              item  = {itemById } 
+              item   = { itemById   } 
               handleSubmit={handleSubmit}
               /> 
               </div>

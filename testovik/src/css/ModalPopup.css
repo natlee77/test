@@ -1,0 +1,97 @@
+.modal{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+   background-color:  transparent;
+  overflow: hidden;
+  overflow-y: auto;
+  transition: opacity 0.3s;
+  z-index: 999;
+}
+
+.modal-wrapped{
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100%;
+}
+
+.modal-content{
+    position: relative;
+    margin: 20px;
+    width: 100%;    
+    max-width: 600px;
+    border-radius: 20px;
+    background-color: rgb(190, 232, 236);
+    padding: 40px 20px 20px 20px;
+    transform: translateY(-50px);
+    transition: opacity 0.3s, trasform 0.3s;
+    color: #1d1c22;
+    font-size: 1.5rem;
+    text-align: center;
+    gap: 5px;
+ 
+    border-style:solid;
+    border-width: 3px;
+    border: #e20707;
+}
+div.form-control{
+  width: 100%;
+  justify-content: space-between;
+  gap: 10px;
+} 
+.form-control input{
+  width: 60%;
+   
+}
+.form-control label{
+  width: 40%;
+  border-style:solid;
+  border-width: 3px;
+  border: #e20707;
+}
+/* .modal-close-button {   // X
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  background-color: transparent;
+  border-color: transparent;
+} */
+.noButton{
+    background-color: rgb(61, 132, 179);
+}
+.modal-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.noText {
+    margin-top: 20px;
+    color: #8a1616;
+    text-align: center;
+    font-weight: bold;   
+    font-size: 1.5rem;
+  }
+  .error {
+    color: red;
+    font-size: 0.5em;
+    margin-top: 5px;
+    opacity: 0; /* Начальное состояние — невидим */
+    transform: translateY(-10px); /* Начальное смещение вверх */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Плавное изменение */
+  }
+  
+  .error.show {
+    opacity: 1; /* Появление */
+    transform: translateY(0); /* Возврат на место */
+  }

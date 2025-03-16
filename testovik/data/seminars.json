@@ -1,0 +1,28 @@
+{
+  "seminars": [
+    {
+      "id": "5",
+      "title": "Секреты профессионалов Kosmoteros",
+      "description": "Семинар с участием ведущих специалистов по использованию средств Kosmoteros.",
+      "date": "09.02.2025",
+      "time": "14:00",
+      "photo": "https://picsum.photos/id/5/750/730"
+    },
+    {
+      "id": "7",
+      "title": "Инновационные средства Kosmoteros",
+      "description": "Демонстрация новых продуктов Kosmoteros и их уникальных свойств.",
+      "date": "13.02.2025",
+      "time": "16:00",
+      "photo": "https://picsum.photos/id/7/750/730"
+    },
+    {
+      "id": "9",
+      "title": "Мастерhhhhhhhhhhhhhhhhhhhhhh",
+      "description": "Практическhhhhhhhhhhhhhhhhh",
+      "date": "17.02.2025",
+      "time": "13:00",
+      "photo": "https://picsum.photos/id/9/750/99999"
+    }
+  ]
+}

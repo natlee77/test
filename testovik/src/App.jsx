@@ -36,10 +36,11 @@ function App() {
    
   const handleSubmit = (id,updatedItem) => {
     if(!updatedItem) return;
-    updateItem(id,updatedItem);        
+    updateItem(updatedItem);        
   }
 
-  const updateItem = async (id,updatedItem) => {
+  const updateItem = async ( updatedItem) => {
+    const id= updatedItem.id;
     try {
       // Находим элемент, который нужно обновить
       const itemToUpdate = items.find(item => item.id === id);

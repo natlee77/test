@@ -20,7 +20,7 @@ function App() {
         const respons = await fetch(API_URL)
         if(!respons.ok) throw Error("Did not received list items data")
         const listItems = await respons.json()
-        // console.log(listItems);
+        
         setItems(listItems)
         setFetchError(null)
       } catch (error) {
@@ -34,7 +34,8 @@ function App() {
     }, 2000);
   }, [])
    
-  const handleSubmit = (id,updatedItem) => {
+  const handleSubmit = ( updatedItem) => {
+    //console.log('updatedItem',updatedItem );
     if(!updatedItem) return;
     updateItem(updatedItem);        
   }
@@ -87,9 +88,10 @@ function App() {
   };
 
 //удалить обьект из- json db
-  const handleDelete = async (id) => {
+  const handleDelete = async (id) => {     
     const listItems = items.filter(item => item.id !== id)
     setItems(listItems)  
+   
     const deleteOptions = {
       method: "DELETE"
     }

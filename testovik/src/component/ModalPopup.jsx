@@ -1,16 +1,19 @@
 import React from "react";
 import '../css/ModalPopup.css'
+import { IoMdClose } from "react-icons/io";
 
-
-export const ModalPopup = ({isOpen ,children} ) => {
+export const ModalPopup = ({isOpen ,setModalOpen ,children} ) => {
 
     return(
         <>
         {isOpen && (
-        <div className="modal">
+        <div className="modal">           
             <div className="modal-wrapped">
-               <div className="modal-content">
-               <p>Ты действительно хочешь удалить семинар?</p>
+               <div className="modal-content">   
+               <button className="modal-close-button"
+                 onClick={()=>{setModalOpen(false)}}>
+                 <IoMdClose />
+                 </button>     
                {children}
                </div>
             </div> 

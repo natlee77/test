@@ -32,6 +32,10 @@
 - Обратите внимание на обработку ошибок и состояния загрузки.
 - Добавьте комментарии в код для пояснения ключевых моментов реализации.
 ====================================================================
+to start api:
+ npm i
+ cd testovik
+ npm run dev 
 
 to start json-server local :
 npx json-server -w testovik\data\seminars.json
@@ -39,3 +43,5 @@ npx json-server -w testovik\data\seminars.json
   ![alt text](view1.png)
   ==================================================================
   ![alt text](view2.png)
+  ================================================================== 
+  ![alt text](view-update.png)

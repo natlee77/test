@@ -41,31 +41,23 @@
     border-width: 3px;
     border: #e20707;
 }
-div.form-control{
-  width: 100%;
-  justify-content: space-between;
-  gap: 10px;
+ form-control{
+  width: 100%; 
 } 
 .form-control input{
-  width: 60%;
-   
+  width: 100%;   
 }
-.form-control label{
-  width: 40%;
-  border-style:solid;
-  border-width: 3px;
-  border: #e20707;
-}
-/* .modal-close-button {   // X
+ 
+  .modal-close-button {   
   position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 26px;
-  height: 26px;
+  top: 21px;
+  right: 21px;
+  width: 48px;
+  height: 48px;
   padding: 0;
   background-color: transparent;
   border-color: transparent;
-} */
+}  
 .noButton{
     background-color: rgb(61, 132, 179);
 }

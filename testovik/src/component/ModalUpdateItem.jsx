@@ -1,7 +1,6 @@
-// ModalUpdateItem.js
 import React, { useRef, useState, useEffect } from "react";
 import '../css/ModalPopup.css';
-import {   validateForm } from './validation'; // Импорт функций валидации
+import { validateForm } from '../service/Validation'; // Импорт функций валидации
 
 export const ModalUpdateItem = ({ updateOpen, item, updateClose, handleSubmit }) => {
   const inputRef = useRef();
@@ -14,14 +13,12 @@ export const ModalUpdateItem = ({ updateOpen, item, updateClose, handleSubmit })
   const [errors, setErrors] = useState({
     title: '', description: '', date: '', time: '', photo: "",
   });
-
+ 
   // Автоматическая фокусировка на инпуте и обновление состояний
   useEffect(() => {
     if (updateOpen && inputRef) {
       inputRef.current.focus();
-    }
-
-    console.log('useEffect', item);
+    } 
     setItemId(item?.id);
     setItemTitle(item?.title || '');
     setItemDescription(item?.description || '');
@@ -34,7 +31,12 @@ export const ModalUpdateItem = ({ updateOpen, item, updateClose, handleSubmit })
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     // Проверяем валидацию
-    const { isValid, errors: validationErrors } = validateForm(itemTitle, itemDescription, itemDate, itemTime);
+    const { isValid, errors: validationErrors} = validateForm(
+      itemTitle, 
+      itemDescription, 
+      itemDate, 
+      itemTime,
+      itemPhoto);
     setErrors(validationErrors);
 
     if (!isValid) {
@@ -51,7 +53,7 @@ export const ModalUpdateItem = ({ updateOpen, item, updateClose, handleSubmit })
       time: itemTime,
       photo: itemPhoto,
     };
-
+    console.log(updatedItem,'updatedItem')
     try {
       await handleSubmit(updatedItem); // Дождитесь завершения handleSubmit
       updateClose(); // Закрываем модальное окно только после успешной отправки
@@ -66,7 +68,7 @@ export const ModalUpdateItem = ({ updateOpen, item, updateClose, handleSubmit })
         <div className="modal">
           <div className="modal-wrapped">
             <div className="modal-content">
-              <form id="updateItem" key={item.id} className='updateForm' onSubmit={handleFormSubmit}>
+              <form id="updateItem" className='updateForm' onSubmit={handleFormSubmit}>
                 <button className='noButton' onClick={() => updateClose(false)}>
                   X
                 </button>

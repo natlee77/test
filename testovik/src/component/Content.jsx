@@ -3,17 +3,16 @@ import { FaTrashAlt } from "react-icons/fa"
 import { RxUpdate } from "react-icons/rx";
 import { ModalPopup } from './ModalPopup'
 import { ModalUpdateItem } from './ModalUpdateItem'
-
+import { DeleteForm } from './DeleteForm'
 
 const Content = ({items=[],  handleDelete, handleSubmit  }) => {
-    //console.log(items); //setItems,
-  const [itemId, setItemId] = useState();  
-   const [itemById , setItemById ] = useState();
+  
+  const [itemId, setItemId] = useState('');  
+  const [itemById , setItemById ] = useState();
   const [modalOpen, setModalOpen] = useState(false);
   const [modalUpdateOpen, setModalUpdateOpen]= useState(false);
     
-  // console.log('item -content',itemById );
-
+   
   //удалить  элемент массива 
   function DeleteObject() {
     if (itemId) {
@@ -35,8 +34,7 @@ const Content = ({items=[],  handleDelete, handleSubmit  }) => {
         <ul>
           {items.map(item => (
             <li className='item' key={item.id} 
-            onClick={()=>{setItemId(item.id);
-                          takeObject(item.id);}} >
+            onClick={()=>{setItemId(item.id )}} >
               <label    >
                    <h3> {item.id} .  {item.title}</h3>
                    <p> {item.description} </p>
@@ -44,37 +42,32 @@ const Content = ({items=[],  handleDelete, handleSubmit  }) => {
                    <img src={item.photo} alt="Фотография" className='image'
                    />
               </label>
+
+
               <div>
-              <button className='modal-show-button'
-                onClick={()=>setModalOpen(true)}  >
-                  <FaTrashAlt  tabIndex='0' />
-              </button>
-              <ModalPopup isOpen={modalOpen} >                    
-                    <div className='modal-div'>
-                        <button className='noButton' 
-                          onClick ={()=> setModalOpen(false)}>
-                           НЕТ 
-                        </button>
-                        <button onClick={DeleteObject}>
-                           ДА
-                        </button>
-                    </div>
+              <button onClick={()=>setModalOpen(true)} className='modal-show-button'><FaTrashAlt tabIndex='0'/></button>
+                <ModalPopup isOpen={modalOpen}
+                  setModalOpen ={setModalOpen} >     
+                   <DeleteForm 
+                    setModalOpen ={setModalOpen} 
+                    DeleteObject ={DeleteObject}  
+                   />
               </ModalPopup>
               </div>
-              
-              <div>
+               
+ 
+               <div>
               <button className='modal-show-button update'
-               onClick={()=>setModalUpdateOpen(true)} 
-                 >
-                  <RxUpdate  tabIndex='0' />
-              </button>  
-              <ModalUpdateItem 
-              updateOpen={modalUpdateOpen}
-              updateClose={()=> setModalUpdateOpen(false)}
-              item   = { itemById } 
-              handleSubmit={handleSubmit}
+               onClick={()=>{setModalUpdateOpen(true);
+                             takeObject(item.id)}}   ><RxUpdate  tabIndex='0'/>
+              </button> 
+                <ModalUpdateItem 
+                   updateOpen={modalUpdateOpen}
+                   updateClose={()=> setModalUpdateOpen(false)}
+                   item   = { itemById } 
+                   handleSubmit={handleSubmit}
               /> 
-              </div>
+              </div>  
             </li>
           ))}
         </ul>
